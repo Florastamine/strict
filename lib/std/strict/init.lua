@@ -18,7 +18,6 @@
 
 
 local _ENV = {
-   error = error,
    len = require 'std.strict._base'.len,
    pairs = require 'std.strict._base'.pairs,
    pcall = pcall,
@@ -65,7 +64,7 @@ return setmetatable({
    --   if rawget(_G, 'setfenv') ~= nil then
    --      setfenv(1, _ENV)
    --   end
-   strict = function(env)
+   strict = function(env, print_error, print_error_assign)
       -- The set of declared variables in this scope.
       local declared = {}
 
@@ -81,7 +80,11 @@ return setmetatable({
             if v ~= nil then
                declared[n] = true
             elseif not declared[n] and what() ~= 'C' then
-               error("variable '" .. n .. "' is not declared", 2)
+               if print_error ~= nil then
+                  print_error(n)
+               else
+                  error("variable '" .. n .. "' is not declared", 2)
+               end
             end
             return v
          end,
@@ -100,7 +103,7 @@ return setmetatable({
             if x == nil and not declared[n] then
                local w = what()
                if w ~= 'main' and w ~= 'C' then
-                  error("assignment to undeclared variable '" .. n .. "'", 2)
+                  print_error_assign("assignment to undeclared variable '" .. n .. "'", 2)
                end
             end
             declared[n] = true
@@ -127,8 +130,8 @@ return setmetatable({
    -- @treturn table *env* which must be assigned to `_ENV`
    -- @usage
    --   local _ENV = require 'std.strict'(_G)
-   __call = function(self, env, level)
-      env = self.strict(env)
+   __call = function(self, env, print_error, print_error_assign, level)
+      env = self.strict(env, print_error, print_error_assign)
       setfenv(1 + (level or 1), env)
       return env
    end,
