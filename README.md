@@ -4,6 +4,8 @@ Diagnose uses of undeclared variables
 by the [strict project][github]
 Copyright (C) 2010-2020 [std.strict authors][authors]
 
+Contains custom modifications from [@Florastamine](https://github.com/Florastamine), mainly to allow custom error reporting hooks instead of doing a `error()` to the console.
+
 [![License](https://img.shields.io/:license-mit-blue.svg)](https://mit-license.org)
 [![travis-ci status](https://secure.travis-ci.org/lua-stdlib/strict.png?branch=master)](https://travis-ci.org/lua-stdlib/strict/builds)
 [![codecov.io](https://codecov.io/github/lua-stdlib/strict/coverage.svg?branch=master)](https://codecov.io/github/lua-stdlib/strict?branch=master)

@@ -1,8 +1,0 @@
-modules = {
-   ['std.strict'] = 'lib/std/strict/init.lua',
-   ['std.strict.*'] = 'lib',
-}
-
-runreport = true
-
-tick = true
