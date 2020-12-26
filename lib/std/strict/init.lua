@@ -18,6 +18,7 @@
 
 
 local _ENV = {
+   error = error,
    len = require 'std.strict._base'.len,
    pairs = require 'std.strict._base'.pairs,
    pcall = pcall,
