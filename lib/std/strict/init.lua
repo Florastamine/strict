@@ -104,7 +104,11 @@ return setmetatable({
             if x == nil and not declared[n] and n ~= '_' then
                local w = what()
                if w ~= 'main' and w ~= 'C' then
-                  print_error_assign("assignment to undeclared variable '" .. n .. "'", 2)
+                  if print_error_assign ~= nil then
+                     print_error_assign(n)
+                  else
+                     print_error_assign("assignment to undeclared variable '" .. n .. "'", 2)
+                  end
                end
             end
             declared[n] = true
