@@ -100,7 +100,7 @@ return setmetatable({
          -- @param v initial value of the variable
          __newindex = function(_, n, v)
             local x = env[n]
-            if x == nil and not declared[n] then
+            if x == nil and not declared[n] and n ~= '_' then
                local w = what()
                if w ~= 'main' and w ~= 'C' then
                   print_error_assign("assignment to undeclared variable '" .. n .. "'", 2)
